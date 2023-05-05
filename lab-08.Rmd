@@ -186,6 +186,57 @@ So it looks like it's throwing out information beyond title, artist, year, and l
 
 ### Exercise 11
 
-...
+```{r summary-of-df}
 
-Add exercise headings as needed.
+skim(uoe_art)
+
+```
+
+40 are missing an artist name, 463 are missing a year.
+
+### Exercise 12
+
+```{r histogram}
+
+uoe_art_histogram <- ggplot (uoe_art, aes(x = year)) +
+  geom_histogram(binwidth = 10)
+
+  
+uoe_art_histogram
+  
+```
+Nothing especially out of the ordinary—though this could be because my dataset is smaller than what the lab was originally oriented for. 
+
+### Exercise 13
+
+(not relevant for the data set I'm working with)
+
+### Exercise 14
+
+```{r most-common-artist}
+
+most_common_artist <- uoe_art %>%
+  group_by(artist) %>%
+  summarise(count = n()) %>%
+  arrange(desc(count))
+
+most_common_artist
+
+```
+
+Other than works for which the artist is unknown, Emma Gillies is the most common artist in the collection! I hadn't heard of her before, but it looks like her alma mater was UOE (she was a potter) so it makes sense that they have a lot of her pieces in thier collection.
+
+
+### Exercise 15
+
+```{r child-in-title}
+library(tidyverse)
+
+uoe_art %>% 
+  filter(str_detect(title, "child|Child")) %>% 
+  summarise(n = n())
+
+```
+
+There are four works of art with "child" or "Child: in the title!
+
